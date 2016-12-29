@@ -1,30 +1,32 @@
 #!/usr/bin/env bash
 
 mkdir -p /var/run/dbus
+rm /data/callees.txt
 
 dbus-daemon --system --nofork  &
 pulseaudio --system --disallow-exit &
+nodejs /phonebook-parser.js
 
 counter=0
-limit=24
+limit=25
+length=30
 
 if [ -n "$LIMIT" ]; then
 	limit=$LIMIT
 fi
 
-if [ ! -f /data/callees.txt ]; then
-	echo "ERROR: /data/callees.txt missing"
-	exit 1
+if [ -n "$LENGTH" ]; then
+        length=$LENGTH
 fi
 
 while true; do
 	while read -r number || [[ -n "$number" ]]; do
 		echo "calling $number"
 
-		(( sleep 28; echo q; echo q; sleep 2 ) | pjsua --local-port=$(($RANDOM % 30000 + 2000)) --config-file /data/pjsua.cfg "sip:$number@voip.eventphone.de" ) &
+    	(( sleep $length; echo q; echo q; sleep 2 ) |pjsua --local-port=$(($RANDOM % 30000 + 2000)) --id "sip:$number@voip.eventphone.de" --config-file /data/pjsua.cfg "sip:$number@voip.eventphone.de" ) &
 
 		counter=$(($counter+1))
-		
+
 		if [ "$counter" -eq "$limit" ]; then
 			echo "waiting for calls"
 			wait

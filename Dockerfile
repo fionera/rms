@@ -13,11 +13,13 @@ RUN apt-get update \
   &&  cp pjsip-apps/bin/pjsua-*gnu /usr/bin/pjsua
 
 RUN apt-get install -yqq pulseaudio
+RUN apt-get install -yqq nodejs
 
 COPY track.wav /data/track.wav
+COPY song.wav /data/song.wav
 COPY pjsua.cfg /data/pjsua.cfg
-COPY callees.txt /data/callees.txt
 COPY entrypoint.sh /entrypoint.sh
+COPY phonebook-parser.js /phonebook-parser.js
 
 CMD /entrypoint.sh
 

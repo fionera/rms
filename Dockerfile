@@ -15,9 +15,10 @@ RUN apt-get update \
 RUN apt-get install -yqq pulseaudio
 RUN apt-get install -yqq nodejs
 
-COPY track.wav /data/track.wav
-COPY song.wav /data/song.wav
-COPY pjsua.cfg /data/pjsua.cfg
+COPY one.wav /data/one.wav
+COPY rms.wav /data/rms.wav
+COPY pjsua_one.cfg /data/pjsua_one.cfg
+COPY pjsua_rms.cfg /data/pjsua_rms.cfg
 COPY entrypoint.sh /entrypoint.sh
 COPY phonebook-parser.js /phonebook-parser.js
 

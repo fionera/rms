@@ -19,11 +19,17 @@ if [ -n "$LENGTH" ]; then
         length=$LENGTH
 fi
 
+config="/data/pjsua.cfg"
+
+config[0]="/data/pjsua_rms.cfg"
+config[1]="/data/pjsua_one.cfg"
+
 while true; do
 	while read -r number || [[ -n "$number" ]]; do
 		echo "calling $number"
-
-    	(( sleep $length; echo q; echo q; sleep 2 ) |pjsua --local-port=$(($RANDOM % 30000 + 2000)) --id "sip:$number@voip.eventphone.de" --config-file /data/pjsua.cfg "sip:$number@voip.eventphone.de" ) &
+		rand=$[ $RANDOM % 2 ]
+		
+    	(( sleep $length; echo q; echo q; sleep 2 ) |pjsua --local-port=$(($RANDOM % 30000 + 2000)) --id "sip:$number@voip.eventphone.de" --config-file ${config[$rand]} "sip:$number@voip.eventphone.de" ) &
 
 		counter=$(($counter+1))
 

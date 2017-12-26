@@ -3,7 +3,7 @@
 var fs = require('fs');
 var http = require('http');
 
-http.get('http://eventphone.de/guru2/phonebook?event=33C3&format=json', function (res) {
+http.get('http://eventphone.de/guru2/phonebook?event=34C3&format=json', function (res) {
     var statusCode = res.statusCode;
     var contentType = res.headers['content-type'];
 

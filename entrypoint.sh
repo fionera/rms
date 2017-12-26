@@ -36,7 +36,7 @@ while true; do
 
 	if [ "$counter" -eq "0" ]; then
 		echo "waiting for rest"
-		wait
+		#wait
 	fi
 done
 
